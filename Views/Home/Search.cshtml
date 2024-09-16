@@ -1,0 +1,46 @@
+﻿@{
+}
+
+@if (Model != null)
+{
+    <input type="hidden" id="addToCartUrl" value="@Url.Action("AddToCart", "Cart")">
+
+    @if (Model.Count > 0)
+    {
+        <div style="margin-top:7vh">
+            <h3 style="color:lightsalmon">Результаты поиска:</h3>
+            <table class="table table-striped">
+                <thead class="thead" style="background-color: #dcedffd9;">
+                    <tr>
+                        <th class="">Наименование</th>
+                        <th class="text-center">Код</th>
+                        <th class="text-center">Стоимость</th>
+                        <th class="text-center">На складе</th>
+                        <th class="text-center">Кол-во</th>
+                    </tr>
+                </thead>
+                <tbody style="background-color: #f2ffe1f5;">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td class="code text-center" id="code">@item.Code</td>
+                            <td class="text-center">@item.Price</td>
+                            <td class="maxAutopartCount text-center">@item.Count</td>
+                            <td class="text-center">
+                                <input type="hidden" class="autoPartId" value="@item.Id" />
+                                <input type="number" min="1" max="@item.Count" class="count" id="count" value="1" style="width: 3em;" />
+                                <button type="button" class="btn btn-success btn-sm align-top buyButton">Купить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h2 class="my-2" style="color:lightsalmon" id="notFoundString">Ничего не найдено</h2>       
+    }
+    <script src="~/js/searchscript.js" defer></script>
+}

@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Страница администратора";
+}
+@* <link rel="stylesheet" href="~/css/orderstyle.css" asp-append-version="true" /> *@
+
+@if (@ViewBag.UserRole == 1)
+{
+    <h2>Администрирование</h2>
+    <div class="my-3 d-flex justify-content-between" style="margin-top:7vh">
+        <div>
+            <button id="getOrdersBut" class="btn btn-warning">
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                Посмотреть заказы
+            </button>
+            <input type="date" class="btn btn-outline-warning" id="dateInput">
+        </div>
+
+        <button id="updateButton" class="btn btn-danger">
+            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            Обновить базу товаров
+        </button>
+    </div>
+    <table class="ordersTable table table-striped" id="ordersTable"></table>
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    </div>
+
+    <!-- Overlay -->
+    // Блокируем экран во время обновления БД
+    <div id="overlay" class="d-none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <script src="~/js/adminindexscript.js" defer></script>
+    <script src="~/js/layoutscript.js" defer></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+}

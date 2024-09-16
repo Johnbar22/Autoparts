@@ -1,0 +1,52 @@
+﻿@model RegistrationModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="~/css/logregstyle.css" asp-append-version="true" />
+
+<body class="bg-dark">
+    <div class="container">
+        <div class="container d-flex justify-content-center align-items-center mt-5">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="form-horizontal">
+                    <span class="heading">Регистрация</span>
+                    <div class="form-group">
+                        <label asp-for="@Model.Username" class="control-label"></label>
+                        <input asp-for="@Model.Username" class="form-control" id="Username" placeholder="Иванов Иван Иванович" required />
+                        <span id="UsernameError" class="text-danger"></span>
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Email" class="control-label"></label>
+                        <input asp-for="@Model.Email" class="form-control" id="Email" placeholder="example@rambler.com" required />
+                        <span id="EmailError" class="text-danger"></span>
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Telephone" class="control-label"></label>
+                        <input asp-for="@Model.Telephone" class="form-control" id="Telephone" placeholder="89998887766" required />
+                        <span id="TelephoneError" class="text-danger"></span>
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <div class="form-group help">
+                        <label asp-for="@Model.Password" class="control-label"></label>
+                        <input asp-for="@Model.Password" class="form-control" id="Password" required />
+                        <span id="PasswordError" class="text-danger"></span>
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div class="form-group help">
+                        <label asp-for="@Model.ConfirmPassword" class="control-label"></label>
+                        <input asp-for="@Model.ConfirmPassword" class="form-control" id="ConfirmPassword" required />
+                        <span id="ConfirmPasswordError" class="text-danger"></span>
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-info" id="registration" type="submit" value="Регистрация" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

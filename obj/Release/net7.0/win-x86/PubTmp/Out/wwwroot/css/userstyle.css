@@ -1,0 +1,46 @@
+﻿.btn {
+    margin-bottom: 5px;
+}
+
+.ordersTable {
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+.button-color {
+    color: black;
+    background-color: #f7c83d;
+}
+
+#userDetailsSection {
+    display: none; /* Скрываем секцию по умолчанию */
+}
+
+.form-horizontal .btn {
+    float: right;
+    font-size: 14px;
+    color: blueviolet;
+    border-radius: 30px;
+    padding: 10px 25px;
+    border: 2px solid #ffffff;
+    transition: all 0.5s ease 0s;
+    text-shadow: 1px 1px 2px #060606, 0 0 1em #060606, 0 0 0.3em #060606
+}
+
+h2 {
+    color: #ffe2bed9;
+}
+
+.form-horizontal {
+    background: #6a6464a8;
+    padding: 20px 0 20px 0;
+    color: #fbe08f;
+}
+
+    .form-horizontal .form-group i {
+        top: 43px;
+    }
+
+    .form-horizontal .form-control {
+        padding: 8px 20px 0 45px;
+    }

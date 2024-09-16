@@ -1,0 +1,151 @@
+﻿@model CartOrderModel
+@{
+    ViewData["Title"] = "Корзина";
+}
+<div class="container ps-0">
+<h2 class="" style="color:coral">Корзина</h2>
+
+@if (Model.Cart == null || Model.Cart.Items == null)
+{
+    <h5 style="color:#f94848">Вы не добавили ни одного товара.</h5>
+}
+else
+{
+    @if (Model.Cart.Items.Count > 0)
+    {
+        <table class="table table-striped">
+            <thead class="thead" style="background-color: #dcedffd9;">
+                <tr>
+                    <th class="" scope="col">Наименование</th>
+                    <th class="text-center" scope="col">Код</th>
+                    <th class="text-center" scope="col">Цена</th>
+                    <th class="text-center" scope="col">Доступно</th>
+                    <th class="text-center" scope="col">
+                        Кол-во
+                        <button type="submit" class="btn-sm btn btn-success align-baseline BtUpdateCount" id="BtUpdateCount">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat align-top" viewBox="0 0 16 16">
+                                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
+                                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"></path>
+                            </svg>
+                        </button>
+                    </th>
+                    <th class="text-center" scope="col">Сумма</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody style="background-color: #f2ffe1f5;">
+                    @foreach (var item in Model.Cart.Items)
+                {
+                        Model.Cart.TotalPrice += item.AutoPart.Price * item.Quantity;
+                    <tr class="cart-items">
+                        <td class="">@item.AutoPart.Name</td>
+                        <td class="text-center">@item.AutoPart.Code</td>
+                        <td class="text-center" id="itemPrice">@item.AutoPart.Price</td>
+                        <td class="text-center" id="maxAutopartCount">@item.AutoPart.Count</td>
+
+                        @*!! обновление кол-ва выбранной позиции в корзине *@
+                        <td class="cartItem text-center">
+                            <input type="hidden" class="cartPartId" name="cartItemId" id="cartItemId" value="@item.Id" />
+                            <input type="number" class="partCount" name="quantity" min="1" max="@item.AutoPart.Count" data-autopart-id="@item.AutoPartId" value="@item.Quantity" id="autopartCount" style="width:3em;" />
+
+                        </td>
+                        <td class="text-center itemPrice">@(item.AutoPart.Price * item.Quantity)</td>
+
+                        @*!! Удаление выбранной позиции из корзины *@
+                        <td class="text-center">
+                            <button class="btn-sm btn-danger removeCartItem" data-cartItemId="@item.Id" data-autoPartCount="@item.Quantity">&times;</button>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th class="text-center" scope="col">Итого:</th>
+                        <td class="text-center" scope="col">@(Model.Cart.TotalPrice)</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+            <input type="hidden" value="@Model.Cart.TotalPrice" id="totalPrice" class="totalPrice" />
+        
+            @if(@ViewBag.UserRole == 2)
+            {
+                
+            }
+            <div class="pt-3">
+            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"><p class="text-color m-2">Оформить заказ</p></a>
+            </div>
+    }
+
+    else
+    {
+        <h5 style="color:#f94848">Вы не добавили ни одного товара.</h5>
+    }
+}
+
+</div>
+
+<div class="modal fade " id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog h">
+        <div class="modal-content modal-window">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Оформление заказа</h5>
+                <button type="button" class="btn-close mb-4" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label asp-for="@Model.Order.UserName" class="control-label"></label>
+                    <div class="col-12">
+                        @if (@ViewBag.UserRole == 2)
+                        {
+                            <input asp-for="@Model.Order.UserName" class="form-control" id="UserName" value=@Model.RegistrationUser.Username required />
+                        }
+                        else
+                        {
+                            <input asp-for="@Model.Order.UserName" class="form-control" id="UserName" placeholder="Иванов Иван Иванович" required />                            
+                        }
+                        <span id="UserNameError" class="text-danger"></span>
+                    </div>
+
+                    <label asp-for="@Model.Order.UserPhone" class="control-label"></label>
+                    <div class="col-12">
+                        @if (@ViewBag.UserRole == 2)
+                        {
+                            <input asp-for="@Model.Order.UserPhone" class="form-control" id="UserPhone" value=@Model.RegistrationUser.Telephone required />
+                        }
+                        else
+                        {
+                            <input asp-for="@Model.Order.UserPhone" class=" form-control" id="UserPhone" placeholder="89992224455" required />                            
+                        }
+                        <span id="UserPhoneError" class="text-danger"></span>
+                    </div>
+
+                    <label asp-for="@Model.Order.UserEmail" class="control-label"></label>
+                    <div class="col-12">
+                        @if (@ViewBag.UserRole == 2)
+                        {
+                            <input asp-for="@Model.Order.UserEmail" class="form-control" id="UserEmail" value=@Model.RegistrationUser.Email required />
+                        }
+                        else
+                        {
+                            <input asp-for="@Model.Order.UserEmail" class="form-control" id="UserEmail" placeholder="example@mail.ru" required />                            
+                        }
+                        <span id="UserEmailError" class="text-danger"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-2 align-top" id="submitBtn">Заказать</button>
+            </div>
+        </div>
+    </div>
+    <!-- Overlay -->
+    <!-- // Блокируем экран во время обновления БД-->
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="spinner" aria-hidden="true">
+        <div class="spinner-border text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div> 
+<script src="~/js/cartindexscript.js" defer></script>

@@ -1,0 +1,41 @@
+﻿@* Вариант с поиском товаров по нажатию кнпоки "Найти"*@
+<link href="~/css/indexhomestyle.css" rel="stylesheet" />
+@model List<AutoParts>
+@{
+    ViewData["Title"] = "Главная";
+}
+<div class="container ps-0" style="padding-top:15%">
+    <p style="color:lightsalmon" id="notFoundString"></p>
+
+    <form class="form-inline my-lg-auto">
+        <input class="form-control mr-sm-2 searchString" input type="text" name="searchString" id="searchString" placeholder="Искать по номеру/названию" aria-label="Search">
+        <button class="btn btn-warning my-2 my-sm-2 searchButton" type="submit" id="searchButton">Найти</button>
+        <div id="loader" style="display: none;">
+            <div class="loading-window">
+                <div class="car">
+                    <div class="strike"></div>
+                    <div class="strike strike2"></div>
+                    <div class="strike strike3"></div>
+                    <div class="strike strike4"></div>
+                    <div class="strike strike5"></div>
+                    <div class="car-detail spoiler"></div>
+                    <div class="car-detail back"></div>
+                    <div class="car-detail center"></div>
+                    <div class="car-detail center1"></div>
+                    <div class="car-detail front"></div>
+                    <div class="car-detail wheel"></div>
+                    <div class="car-detail wheel wheel2"></div>
+                </div>
+
+                <div class="text">
+                    <span>Loading</span><span class="dots">...</span>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="searchResults">
+    </div>
+</div>
+
+<script src="~/js/homeindexscript.js" defer></script>

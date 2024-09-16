@@ -1,0 +1,105 @@
+﻿@model CartOrderModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Shop_ex.styles.css" asp-append-version="true" />
+    <link href="~/css/layoytstyle.css" rel="stylesheet" />
+
+</head>
+<body style="background-image: url(https://kartinki.pics/uploads/posts/2021-07/1626725539_7-kartinkin-com-p-zapchasti-fon-krasivo-8.jpg); background-attachment: fixed;">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 fixed-top"
+             style="background-color: #e6e6e600; backdrop-filter: blur(500px);">
+            <div class="container p-0">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" style="font-weight:500; text-shadow: 1px 1px 4px black;" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" style="font-weight:500; text-shadow: 1px 1px 4px black;" asp-area="" asp-controller="Home" asp-action="About">О компании</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" style="font-weight:500; text-shadow: 1px 1px 4px black;" asp-area="" asp-controller="Cart" asp-action="Index">
+                                <span class="">
+                                    Корзина
+                                    <img src="~/cart_ico.svg" />
+                                    <span class="cart-count mt-1" style="display: none;"></span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="col-md-3 text-end">
+                    </div>
+                </div>
+
+                @if (User.Identity.IsAuthenticated == true)
+                {
+                    if (@ViewBag.UserRole == 1)
+                    {
+                        <div class="text-end">
+                            <a type="button" class="btn btn-outline-light me-2" style="font-weight:500; text-shadow: 1px 1px 4px black;" asp-area="" asp-controller="Order" asp-action="Index">Личный кабинет админа</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-end">
+                            <a type="button" class="btn btn-outline-light me-2" style="font-weight:500; text-shadow: 1px 1px 4px black;" asp-area="" asp-controller="User" asp-action="Index">Личный кабинет</a>
+                        </div>
+                    }
+                    <div class="text-end">
+                        <a type="button" id="linkExit" class="btn btn-outline-light me-2" style="font-weight:500; text-shadow: 1px 1px 4px black;" asp-area="" asp-controller="Login" asp-action="Logout">Выход</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-end">
+                        <a type="button" class="btn btn-outline-light me-2" style="font-weight:500; text-shadow: 1px 1px 4px black;" asp-area="" asp-controller="Login" asp-action="Index">Вход/Регистрация</a>
+                    </div>
+                }                
+            </div>
+        </nav>
+    </header>
+
+    <div class="">
+        @{
+            // Генерируем токен CSRF
+            var token = Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext).RequestToken;
+        }
+        <input type="hidden" name="__RequestVerificationToken" value="@token" />
+
+        <main role="main" class="container pb-3 my-5 py-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-white text-center d-flex flex-wrap justify-content-between align-items-center" style="background-color: #e6e6e600; backdrop-filter: blur(15px);">
+
+        <div class="container ps-0 d-flex flex-wrap justify-content-between align-items-center">
+            <div class="left-foot">
+                <a href="https://wa.me/message/SG3EQCG4DUZTD1" class="text-decoration-none" style="color: #00ff08b3; font-weight:500; text-shadow: 2px 3px 1px black"><img src="~/whatsapp.svg" class="me-1" />+7(963)531-72-02</a>
+                <span class="text-decoration-none" style="color: #00ff08b3; font-weight:500; text-shadow: 2px 3px 1px black"><img src="~/phone3.svg" style="box-shadow: 1px 1px 12px white;background-color: #ebebeb5c;">+7(3852)35‒92‒91</span>
+                <span class="text-decoration-none" style="color: #00ff08b3; font-weight:500; text-shadow: 2px 3px 1px black"><img src="~/phone3.svg" style="box-shadow: 1px 1px 12px white;background-color: #ebebeb5c;" />+7(3852)35‒93‒18</span>
+            </div>
+        </div>
+    </footer>
+
+    <script defer src="~/js/layoutscript.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

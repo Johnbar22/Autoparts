@@ -1,0 +1,49 @@
+﻿@model Shop_ex.Models.Order
+@* <link rel="stylesheet" href="~/css/orderdetailsstyle.css" asp-append-version="true" /> *@
+
+@if (Model != null)
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Детали заказа</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead class="thead" style="background-color: #3ae9f1;">
+                        <tr>
+                            <th>Наименование товара</th>
+                            <th class="text-center">Цена</th>
+                            <th class="text-center">Количество</th>
+                            <th class="text-center">Общая стоимость</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background-color: #f2ffe1f5;">
+                        @if (Model.Cart.Items != null)
+                        {
+                            @foreach (var item in Model.Cart.Items)
+                            {
+                                <tr>
+                                    <td>@item.AutoPart.Name</td>
+                                    <td class="text-center">@item.AutoPart.Price</td>
+                                    <td class="text-center">@item.Quantity</td>
+                                    <td class="text-center">@(item.AutoPart.Price * item.Quantity)</td>
+                                </tr>
+                            }
+                        }
+                        <tr style="background-color: #dcf772;">
+                            <td></td>
+                            <td></td>
+                            <td class="text-end" style="padding:8px 0;">Сумма заказа:</td>
+                            <td class="text-center">@Model.Cart.TotalPrice</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+}

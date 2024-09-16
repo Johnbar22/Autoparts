@@ -1,0 +1,32 @@
+﻿@model List<Order>
+
+@if (Model != null)
+{
+    <thead class="thead" style="background-color: #98f796d9;">
+        <tr>
+            <th>Номер</th>
+            <th class="text-center">ФИО заказчика</th>
+            <th class="text-center">Телефон заказчика</th>
+            <th class="text-center">Почта заказчика</th>
+            <th class="text-center">Дата заказа</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="background-color: #f2ffe1f5;">
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td class="text-center">@order.UserName</td>
+                <td class="text-center">@order.UserPhone</td>
+                <td class="text-center">@order.UserEmail</td>
+                <td class="text-center">@order.OrderDate.ToShortDateString()</td>
+                <td class="text-center">
+                    <button class="btn-sm btn-info getOrderDet" data-order-id="@order.Id">+</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+   
+    <script src="~/js/ordertablescript.js" defer></script>
+}
